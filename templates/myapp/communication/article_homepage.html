@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+    <style>
+        .article{
+            width: 80%;
+        }
+        .article_list{
+            width: 100%;
+            border: red 1px dashed;
+        }
+        .article .article_list th{
+            text-align: center;
+            border: 1px skyblue dashed;
+        }
+        .article .article_list td{
+            text-align: center;
+            border: 1px green dashed;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                /* Change color on hover */
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a href="{% url 'artwriting' %}">我要写文章</a>
+        <a href="{% url 'menu' %}">返回主页</a>
+        <a href="{% url 'logoutpage' %}">用户登出</a>
+    </div>
+    <div class="article">
+        <table class="article_list">
+            <tr>
+                <th>文章ID</th>
+                <th>文章标题</th>
+                <th>文章内容</th>
+                <th>发布时间</th>
+                <th>作者</th>
+            </tr>
+            {% for article in all_article_list %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td><a href="/article_detail/{{ article.id }}/">{{ article.title }}</a>   {# 点击链接打开文章详情页，并传入文章的ID #}
+                <td>{{ article.content }}</td>
+                <td>{{ article.publish_time | date:"Y-m-d H:i:s"}}</td>
+                <td>{{ article.author }}</td>
+            </tr>
+            {% endfor %}
+ 
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+</head>
+<body>
+    <div>
+        <form action="{% url 'aniupdate' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="作品数据更新" id="btn_sub"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div>
+        <form action="{% url 'anidelall' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="删除全部数据" id="btn_sub"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <center>
+        <h2>数据管理</h2>
+        <table width="800" border="1">
+            <tr>
+                <th>id号</th>
+                <th>作品</th>
+                <th>图片</th>
+                <th>BGM分数</th>
+                <th>BGM排名</th>
+            </tr>
+            {% for animate in animatelist %}
+            <tr>
+                <td>{{animate.id}}</td>
+                <td>{{animate.aname}}</td>
+                <td>{{animate.aimg}}</td>
+                <td>{{animate.ascore}}</td>
+                <td>{{animate.arank}}</td>
+                <td>
+                    <a href="{% url 'anidelete' animate.id %}">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+
+</body>
+</html>

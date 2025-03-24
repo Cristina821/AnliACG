@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+</head>
+<body>
+    <center>
+        <a href="{% url 'menu' %}">返回登录界面</a>
+        <a href="{% url 'indexusers' %}">查看用户信息</a>
+        <a href="{% url 'animanage' %}">查看作品信息</a>
+        <a href="{% url 'addusers' %}">注册</a>
+
+        <h4>{{info}}</h4>
+    </center>
+
+</body>
+</html>

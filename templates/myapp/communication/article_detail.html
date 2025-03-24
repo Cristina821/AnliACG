@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <style>
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                /* Change color on hover */
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        /* Style the content */
+        .content {
+            background-color: #ddd;
+            padding: 10px;
+            height: 200px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Style the footer */
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+
+        .article_detail {
+            width: 80%;
+            margin-left: 100px;
+        }
+
+        .comment_post {
+            width: 80%;
+            margin-left: 100px;
+        }
+
+        .comment_show {
+            width: 80%;
+            margin-left: 100px;
+        }
+
+        #commentform_title {
+            background-image: url(//static.cnblogs.com/images/icon_addcomment.gif);
+            background-repeat: no-repeat;
+            padding: 0 0 0 25px;
+            margin-bottom: 10px;
+        }
+
+        .feedback_area_title {
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+
+        #p {
+            border: deepskyblue 1px dashed;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a href="{% url 'arthomepage' %}">返回</a>
+        <a href="{% url 'menu' %}">返回主页</a>
+        <a href="{% url 'logoutpage' %}">用户登出</a>
+    </div>
+    <div class="article_detail">
+        <h4>{{ article.title }}</h4>
+        <p>{{ article.content }}</p>
+        <p>发布时间:{{ article.publish_time | date:"Y-m-d H:i:s"}}    作者:{{ article.author }}</p>
+    </div>
+
+    <h2>{{info}}</h2>
+    <div class="comment_post">
+        <form action="{% url 'artcominsert' %}" method="post">
+            {% csrf_token %}
+            <div id="commentform_title">发表评论</div>
+            <textarea rows="10" cols="60" id="comment_content" name="comment"></textarea>
+            <p><button type="submit">提交评论</button></p>
+        </form>
+    </div>
+
+
+
+    <div class="comment_show">
+        {# 评论展示区域的div #}
+        <div class="feedback_area_title">评论列表</div>
+        <div class="comment_list">
+            {% for comment in comment_list %}
+            <div>
+                <p>第{{ forloop.counter}}楼 -> By:{{ comment.comment_author }} -> {{ comment.comment_time }} -> <button class="reply" id="btn" username={{ comment.comment_author }} value={{ comment.id }}>回复</button></p>
+                {% if comment.pre_comment_id %}
+                <p id="p">原评论内容：{{ comment.pre_comment.comment_content }}</p>
+                {% endif %}
+                <p>评论内容：{{ comment.comment_content }}</p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <script>
+        var pid = ""
+        $(".reply").click(function () {
+            $("#comment_content").focus()
+            var val = "@" + $(this).attr("username") + "\n"
+            $("#comment_content").val(val)
+            pid = $(this).attr("pk")
+            $.ajaxSetup({ data: { csrfmiddlewaretoken: '{{ csrf_token }}' } });
+            //post请求时用来绕过csrf验证的，同表单提交的{% csrf_token %}一样
+            // 发送Ajax请求
+            var pre_id = $(this).attr("value")
+            console.log(pre_id)
+            $.ajax({
+                url: "/article/target_check",
+                type: "post",
+                data: {
+                    'pre_id': $(this).attr("value"),
+                },
+                success: function (data) {
+                        console.log(data);
+                    }
+                })
+            })
+
+    </script>
+</body>
+</html>

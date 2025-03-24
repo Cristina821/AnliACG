@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\myapp",
+    "\\myapp\\migrations",
+    "\\myproject",
+    "\\templates",
+    "\\templates\\myapp",
+    "\\templates\\myapp\\error",
+    "\\templates\\myapp\\menu",
+    "\\templates\\myapp\\show",
+    "\\templates\\myapp\\users"
+  ],
+  "SelectedNode": "\\myapp\\views.py",
+  "PreviewInSolutionExplorer": false
+}

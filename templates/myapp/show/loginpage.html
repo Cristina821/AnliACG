@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                /* Change color on hover */
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        /* Style the content */
+        .content {
+            background-color: #ddd;
+            padding: 10px;
+            height: 200px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Style the footer */
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+    </style>
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+
+</head>
+<body>
+    <div class="topnav">
+        <a href="{% url 'addusers' %}">注册账号</a>
+    </div>
+    <div class="content">
+        <h1>登录AnliACG</h1>
+        <form action="{% url 'loginpage' %}" method="post">
+            {% csrf_token %}
+            账号: <input type="text" name="key" placeholder="请输入注册时使用的手机号"><br>
+            密码: <input type="password" name="password">
+            <input type="submit" value="提交" />
+        </form>
+        <h3>{{warning}}</h3>
+    </div>
+    <div class="footer">
+        <p>关于我们</p>
+    </div>
+</body>
+</html>

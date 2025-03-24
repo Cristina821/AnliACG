@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnliACG</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/怎么会是呢.jpg' %}">
+</head>
+<body>
+    <center>
+        <h4>{{error}}</h4>
+        <h4>{{info}}</h4>
+        <a href="{% url 'jump' %}">返回登录界面</a>
+    </center>
+
+</body>
+</html>
